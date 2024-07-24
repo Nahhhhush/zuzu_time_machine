@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zuzu's Time Machine</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-image: url("{{ url_for('static', filename='background.jpeg') }}");
+            background-size: cover;
+            color: white;
+            text-shadow: 2px 2px 4px #000000;
+        }
+        img {
+            width: 300px;
+            height: auto;
+            margin: 20px;
+        }
+        .caption {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        .buttons {
+            margin: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Zuzu's Time Machine!</h1>
+    <p>Today's date and time is: {{ current_date_time }}</p>
+
+    {% if index is defined %}
+        <img src="{{ url_for('static', filename=photos[index]['filename']) }}" alt="Zuzu Photo">
+        <div class="caption">{{ photos[index]['caption'] }}</div>
+    {% else %}
+        <img src="{{ url_for('static', filename=photos[0]['filename']) }}" alt="Zuzu Photo">
+        <div class="caption">{{ photos[0]['caption'] }}</div>
+    {% endif %}
+
+    <div class="buttons">
+        <a href="/" class="button">Show Present Photo</a>
+        {% for i in range(1, len(photos)) %}
+            <a href="/travel_to_past/{{ i }}" class="button">Show Past Photo {{ i }}</a>
+        {% endfor %}
+    </div>
+</body>
+</html>
